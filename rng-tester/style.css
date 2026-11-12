@@ -1,0 +1,245 @@
+/* auto roll */ -----------------------------------------------------------------------------------
+#auto-roll {
+    all: unset;
+    box-sizing: border-box;
+    width: 45px;
+    height: 45px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#auto-roll.active {
+    background-color: #333;
+}
+
+#auto-roll:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#knop.auto-active {
+    background-color: blue;
+}
+
+body {
+    background-color: #151515;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 60px;
+    color: gold;
+}
+
+button {
+    background-color: rgb(0, 128, 34);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+button:disabled {
+    background-color: rgb(250, 2, 2);
+    cursor: not-allowed;
+}
+
+.inventory {
+    background-color: #1a1a1a;
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px auto;
+    width: 80%;
+    max-width: 800px;
+    color: white;
+}
+
+.inventory h2 {
+    text-align: center;
+    font-size: 28px;
+}
+
+#inventory-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    min-height: 100px;
+}
+
+#use-potion {
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    background-color: #252525;
+    border: 2px solid #555;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#use-potion:disabled {
+    background-color: #151515;
+    border: 2px dashed #444;
+    cursor: not-allowed;
+}
+
+.use-text {
+    display: none;
+    font-size: 14px;
+}
+
+#use-potion:not(:disabled):hover .use-text {
+    display: block;
+}
+
+.rarity-inventory {
+    background-color: #222;
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.rarity-inventory h3 {
+    font-size: 24px;
+}
+
+#rarity-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rarity-button {
+    background-color: #333;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.rarity-button:hover {
+    background-color: #555;
+}
+
+#rarity-rolls {
+    background-color: #151515;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 50px;
+}
+
+.roll-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.roll-number {
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 40px;
+}
+
+#open-shop {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#shop-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.shop-window {
+    background-color: #222;
+    border: 2px solid #555;
+    border-radius: 15px;
+    padding: 30px;
+width: 950px;
+max-width: 95%;
+    position: relative;
+}
+
+.shop-window h2 {
+    font-size: 30px;
+}
+
+#close-shop {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    background-color: #a00000;
+}
+
+/* Upgrades naast elkaar */
+
+#shop-upgrades {
+    width: 100%;
+}
+
+.upgrade-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.upgrade-item {
+    background-color: #151515;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    flex: 1;
+    min-width: 0;
+}
+
+.upgrade-item p {
+    font-size: 16px;
+}
+
+.upgrade-item button {
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+@media (max-width: 600px) {
+    .upgrade-container {
+        flex-direction: column;
+    }
+}

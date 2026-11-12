@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNG Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <script src="script.js" defer></script>
+
+    <h1>RNG Simulator</h1>
+    <h2 id="resultaat">?</h2>
+    <h2 id="rarity">Klik op Roll!</h2>
+
+    <button id="knop">Roll!</button>
+    <button id="auto-roll" title="Auto Roll" disabled>🔄</button>
+
+    <p id="luck-timer">Geen actieve boost</p>
+    <p id="luck-value">Luck: 1</p>
+
+    <section class="inventory">
+        <h2>Inventory</h2>
+
+        <div id="inventory-items">
+            <button id="use-potion" disabled>
+                <span id="potion-count">Luck Potion x0</span>
+                <span class="use-text">Use Potion</span>
+            </button>
+        </div>
+
+        <div class="rarity-inventory">
+            <h3>Rarity Collection</h3>
+
+            <div id="rarity-buttons"></div>
+
+            <div id="rarity-rolls">
+                <p>Select a rarity to see your rolls!</p>
+            </div>
+        </div>
+
+        <button id="open-shop">Upgrade Shop</button>
+
+        <div id="shop-overlay">
+            <div class="shop-window">
+                <button id="close-shop">X</button>
+                <h2>Upgrade Shop</h2>
+
+                <div id="shop-upgrades"></div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
