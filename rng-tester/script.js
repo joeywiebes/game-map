@@ -6,6 +6,8 @@ let luckUpgradeLevel = 0;
 let luckBoostEnd = 0;
 let potionDuration = 5 * 60 * 1000;
 let rollSpeedLevel = 0;
+let totalRolls = 0;
+let pirateShopTokens = 0;
 
 let rollsByRarity = {
     "Common": [],
@@ -19,7 +21,11 @@ let rollsByRarity = {
     "Abyssal": [],
     "Prismatic": [],
     "Apex": [],
-    "Pirate Shop Token": []
+    "Insanity": [],
+    "???": [],
+    "3rr0r": [],
+    "fr4ctur3d": [],
+    "The rarity": [],
 };
 
 let selectedRarity = null;
@@ -28,6 +34,12 @@ let autoRollUnlocked = false;
 // Roll button + raritys
 
 document.getElementById("knop").addEventListener("click", function() {
+
+if (Math.random() < 1 / 100000) {
+    pirateShopTokens++;
+    updateInventory();
+    console.log("Pirate Shop Token ontvangen!");
+}
 
     let knop = document.getElementById("knop");
 
@@ -40,11 +52,16 @@ document.getElementById("knop").addEventListener("click", function() {
     let resultaat = document.getElementById("resultaat");
     let rarity = document.getElementById("rarity");
 
+    totalRolls++;
+
+document.getElementById("roll-count").textContent =
+    "Total Rolls: " + totalRolls;
+
     let randomGetal = Math.floor(
         -Math.log(1 - Math.random()) * 12 * luck
     ) + 1;
 
-    randomGetal = Math.min(randomGetal, 1000);
+    randomGetal = Math.min(randomGetal, 10000);
     resultaat.textContent = randomGetal;
 
     if (randomGetal <= 25) {
@@ -75,15 +92,15 @@ document.getElementById("knop").addEventListener("click", function() {
         rarity.textContent = "Exotic";
         rarity.style.color = "orange";
     }
-    else if (randomGetal <= 500) {
+    else if (randomGetal <= 450) {
         rarity.textContent = "Secret";
         rarity.style.color = "cyan";
     }
-    else if (randomGetal <= 800) {
+    else if (randomGetal <= 750) {
         rarity.textContent = "Abyssal";
         rarity.style.color = "darkblue";
     }
-    else if (randomGetal <= 900) {
+    else if (randomGetal <= 850) {
         rarity.textContent = "Prismatic";
         rarity.style.color = "magenta";
     }
@@ -91,10 +108,26 @@ document.getElementById("knop").addEventListener("click", function() {
         rarity.textContent = "Apex";
         rarity.style.color = "crimson";
     }
-    else {
-        rarity.textContent = "Pirate Shop Token";
-        rarity.style.color = "gold";
+    else if (randomGetal <= 1100) {
+        rarity.textContent = "Insanity";
+        rarity.style.color = "pink";
     }
+    else if (randomGetal <= 1500) {
+        rarity.textContent = "???";
+        rarity.style.color = "purple";
+    }
+    else if (randomGetal <= 2000) {
+        rarity.textContent = "3rr0r";
+        rarity.style.color = "white";
+    }
+    else if (randomGetal <= 3000) {
+        rarity.textContent = "fr4ctur3d";
+        rarity.style.color = "#2d2315";
+    }
+else {
+    rarity.textContent = "The rarity";
+    rarity.classList.add("rainbow-text");
+}
 
     rollsByRarity[rarity.textContent].push(randomGetal);
 
@@ -109,18 +142,34 @@ document.getElementById("knop").addEventListener("click", function() {
         potionChance = 1;
     }
     else if (randomGetal > 500) {
-        potionChance = 0.10;
+        potionChance = 0.01;
     }
     else {
-        potionChance = 0.005;
+        potionChance = 0.0005;
     }
 
-    if (Math.random() < potionChance) {
-        luckPotions++;
-        updateInventory();
-    }
+if (Math.random() < potionChance) {
+    luckPotions++;
+    updateInventory();
+    showPotionAlert();
+}
 
 });
+
+let potionAlertTimeout;
+
+function showPotionAlert() {
+
+    let alert = document.getElementById("potion-alert");
+
+    alert.classList.add("show");
+
+    clearTimeout(potionAlertTimeout);
+
+    potionAlertTimeout = setTimeout(function() {
+        alert.classList.remove("show");
+    }, 5000);
+}
 
 // Rarity inventory
 
@@ -217,6 +266,9 @@ function updateInventory() {
 
     document.getElementById("use-potion").disabled =
         luckPotions <= 0;
+
+        document.getElementById("token-count").textContent =
+    "Pirate Shop Token x" + pirateShopTokens;
 }
 
 document.getElementById("use-potion").addEventListener("click", function() {
@@ -334,6 +386,30 @@ let luckUpgrades = [
             "Exotic": 10,
             "Secret": 5
         }
+    },
+    {
+        name: "Luck VIII",
+        costs: {
+            "Common": 500,
+            "Uncommon": 500,
+            "Secret": 10
+        }
+    },
+    {
+        name: "Luck IX",
+        costs: {
+            "Rare": 250,
+            "Epic": 100,
+            "Exotic": 50
+        }
+    },
+    {
+        name: "Luck X",
+        costs: {
+            "Pristmatic": 3,
+            "Secret": 10,
+            "Common": 500
+        }
     }
 ];
 
@@ -370,9 +446,17 @@ let rollSpeedUpgrades = [
     {
         name: "Roll Speed V",
         costs: {
-            "Prismatic": 1,
-            "Apex": 5,
+            "Prismatic": 5,
+            "Apex": 1,
             "Abyssal": 10
+        }
+    },
+    {
+        name: "Roll speed VI",
+        costs: {
+            "Apex": 10,
+            "Common": 2500,
+            "Insane": 1
         }
     }
 ];
@@ -733,6 +817,16 @@ autoRollInterval = setInterval(function() {
 
         clearInterval(autoRollInterval);
     }
+});
+
+let inventoryOverlay = document.getElementById("inventory-overlay");
+
+document.getElementById("open-inventory").addEventListener("click", function() {
+    inventoryOverlay.style.display = "flex";
+});
+
+document.getElementById("close-inventory").addEventListener("click", function() {
+    inventoryOverlay.style.display = "none";
 });
 
     // let mythicalKans = Math.random() < 0.1;
