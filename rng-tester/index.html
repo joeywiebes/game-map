@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RNG Simulator</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <script src="script.js" defer></script>
 
     <h1>RNG Simulator</h1>
@@ -21,53 +21,54 @@
     <p id="luck-value">Luck: 1</p>
     <p id="roll-count">Total Rolls: 0</p>
 
+    <h2>Rarity's</h2>
+    <!-- Inventory knop aan de linkerkant -->
+    <button id="open-inventory">Inventory</button>
 
-        <h2>Rarity's</h2>
-<!-- Inventory knop aan de linkerkant -->
-<button id="open-inventory">Inventory</button>
-
-<!-- Inventory venster -->
-<div id="inventory-overlay">
-    <div class="inventory-window">
+    <!-- Inventory venster -->
+    <div id="inventory-overlay">
+      <div class="inventory-window">
         <button id="close-inventory">X</button>
 
         <h2>inventory</h2>
 
         <div id="inventory-items">
-            <button id="use-potion" disabled>
-                <span id="potion-count">Luck Potion x0</span>
-                <span class="use-text">Use Potion</span>
-            </button>
-            <button id="token-item" disabled>
-    <span id="token-count">Pirate Shop Token x0</span>
+          <button id="use-potion" disabled>
+            <span id="potion-count">Luck Potion x0</span>
+            <span class="use-text">Use Potion</span>
+          </button>
+<button id="rollspeed-potion" disabled>
+    <span id="rollspeed-count">Roll Speed Potion x0</span>
+    <span class="use-text">Use Potion</span>
 </button>
+          <button id="token-item" disabled>
+            <span id="token-count">Pirate Shop Token x0</span>
+          </button>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Rarity Collection blijft op de pagina -->
-<section class="inventory">
-    <div class="rarity-inventory">
+    <!-- Rarity Collection blijft op de pagina -->
+    <section class="inventory">
+      <div class="rarity-inventory">
         <h3>Rarity Collection</h3>
         <div id="rarity-buttons"></div>
         <div id="rarity-rolls">
-            <p>Select a rarity to see your rolls!</p>
+          <p>Select a rarity to see your rolls!</p>
         </div>
-    </div>
-<button id="open-shop">Upgrade Shop</button>
+      </div>
+      <button id="open-shop">Upgrade Shop</button>
 
-<div id="shop-overlay">
-    <div class="shop-window">
-        <button id="close-shop">X</button>
-        <h2>Upgrade Shop</h2>
+      <div id="shop-overlay">
+        <div class="shop-window">
+          <button id="close-shop">X</button>
+          <h2>Upgrade Shop</h2>
 
-        <div id="shop-upgrades"></div>
-    </div>
-</div>
+          <div id="shop-upgrades"></div>
+        </div>
+      </div>
     </section>
 
-    <div id="potion-alert">
-    🍀 Luck Potion ontvangen!
-</div>
-</body>
+    <div id="potion-alert">🍀 Luck Potion ontvangen!</div>
+  </body>
 </html>

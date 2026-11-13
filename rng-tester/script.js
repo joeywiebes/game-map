@@ -1,5 +1,6 @@
 let luckPotions = 0;
 let luck = 1;
+let rollSpeedBoostEnd = 0;
 
 let baseLuck = 1;
 let luckUpgradeLevel = 0;
@@ -138,11 +139,14 @@ else {
 
     let potionChance;
 
-    if (randomGetal > 990) {
+    if (randomGetal > 5000) {
         potionChance = 1;
     }
     else if (randomGetal > 500) {
-        potionChance = 0.01;
+        potionChance = 0.001;
+    }
+    else if (randomGetal > 2500) {
+        potionChance = 0.05
     }
     else {
         potionChance = 0.0005;
@@ -152,6 +156,11 @@ if (Math.random() < potionChance) {
     luckPotions++;
     updateInventory();
     showPotionAlert();
+}
+
+if (Math.random() < potionChance) {
+    rollspeedPotions++;
+    updateInventory();
 }
 
 });
@@ -255,7 +264,7 @@ function showRarityRolls() {
     }
 }
 
-// Inventory
+// Inventory (MAAK HIER ITEMS AAN MET COUNT)
 
 function updateInventory() {
     document.getElementById("potion-count").textContent =
@@ -267,8 +276,14 @@ function updateInventory() {
     document.getElementById("use-potion").disabled =
         luckPotions <= 0;
 
+        document.getElementById("rollspeed-count").textContent =
+    "Roll Speed Potion x" + rollspeedPotions;
+
         document.getElementById("token-count").textContent =
     "Pirate Shop Token x" + pirateShopTokens;
+
+    document.getElementById("rollspeed-potion").disabled =
+    rollspeedPotions <= 0;
 }
 
 document.getElementById("use-potion").addEventListener("click", function() {
@@ -291,6 +306,41 @@ document.getElementById("use-potion").addEventListener("click", function() {
     }
 
 });
+
+document.getElementById("rollspeed-potion").addEventListener("click", function() {
+
+    if (rollspeedPotions > 0) {
+
+        rollspeedPotions--;
+
+        let now = Date.now();
+
+        if (rollSpeedBoostEnd > now) {
+            rollSpeedBoostEnd += potionDuration;
+        } else {
+            rollSpeedBoostEnd = now + potionDuration;
+        }
+
+        refreshAutoRollInterval();
+
+        updateInventory();
+    }
+
+});
+
+function refreshAutoRollInterval() {
+
+    if (!autoRoll) {
+        return;
+    }
+
+    clearInterval(autoRollInterval);
+
+    autoRollInterval = setInterval(function() {
+        document.getElementById("knop").click();
+    }, getRollDelay() + 50);
+
+}
 
 // Luck timer
 
@@ -330,6 +380,19 @@ document.addEventListener("keydown", function(event) {
     }
 
 });
+
+function updateRollSpeedTimer() {
+
+    if (rollSpeedBoostEnd > 0 && Date.now() >= rollSpeedBoostEnd) {
+
+        rollSpeedBoostEnd = 0;
+
+        refreshAutoRollInterval();
+    }
+
+}
+
+setInterval(updateRollSpeedTimer, 1000);
 
 // Upgrades
 
@@ -390,8 +453,8 @@ let luckUpgrades = [
     {
         name: "Luck VIII",
         costs: {
-            "Common": 500,
-            "Uncommon": 500,
+            "Common": 300,
+            "Uncommon": 200,
             "Secret": 10
         }
     },
@@ -462,7 +525,13 @@ let rollSpeedUpgrades = [
 ];
 
 function getRollDelay() {
-    return Math.max(100, 400 - rollSpeedLevel * 60);
+    let delay = Math.max(100, 400 - rollSpeedLevel * 60);
+
+    if (rollSpeedBoostEnd > Date.now()) {
+        return Math.max(50, delay / 2);
+    }
+
+    return delay;
 }
 
 // Upgrade shop
@@ -772,13 +841,7 @@ function buyRollSpeedUpgrade() {
 
     // Auto Roll snelheid aanpassen als deze actief is
 
-    if (autoRoll) {
-        clearInterval(autoRollInterval);
-
-        autoRollInterval = setInterval(function() {
-            document.getElementById("knop").click();
-        }, getRollDelay() + 50);
-    }
+refreshAutoRollInterval();
 
     updateShop();
 }
