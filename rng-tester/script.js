@@ -26,6 +26,7 @@ let rollsByRarity = {
     "???": [],
     "3rr0r": [],
     "fr4ctur3d": [],
+    "Impossible": [],
     "The rarity": [],
 };
 
@@ -39,7 +40,7 @@ document.getElementById("knop").addEventListener("click", function() {
 if (Math.random() < 1 / 100000) {
     pirateShopTokens++;
     updateInventory();
-    console.log("Pirate Shop Token ontvangen!");
+    showTokenAlert();
 }
 
     let knop = document.getElementById("knop");
@@ -125,6 +126,10 @@ document.getElementById("roll-count").textContent =
         rarity.textContent = "fr4ctur3d";
         rarity.style.color = "#2d2315";
     }
+    else if (randomGetal <= 5000) {
+        rarity.textContent = "Impossible"
+        rarity.style.color = "rgba(133, 57, 123, 0.99)"
+    }
 else {
     rarity.textContent = "The rarity";
     rarity.classList.add("rainbow-text");
@@ -161,8 +166,8 @@ if (Math.random() < potionChance) {
 if (Math.random() < potionChance) {
     rollspeedPotions++;
     updateInventory();
+    showRollspeedAlert();
 }
-
 });
 
 let potionAlertTimeout;
@@ -469,7 +474,7 @@ let luckUpgrades = [
     {
         name: "Luck X",
         costs: {
-            "Pristmatic": 3,
+            "Prismatic": 3,
             "Secret": 10,
             "Common": 500
         }
@@ -891,6 +896,26 @@ document.getElementById("open-inventory").addEventListener("click", function() {
 document.getElementById("close-inventory").addEventListener("click", function() {
     inventoryOverlay.style.display = "none";
 });
+
+function showRollspeedAlert() {
+    let alert = document.getElementById("rollspeed-alert");
+
+    alert.classList.add("show");
+
+    setTimeout(function() {
+        alert.classList.remove("show");
+    }, 5000);
+}
+
+function showTokenAlert() {
+    let alert = document.getElementById("token-alert");
+
+    alert.classList.add("show");
+
+    setTimeout(function() {
+        alert.classList.remove("show");
+    }, 5000);
+}
 
     // let mythicalKans = Math.random() < 0.1;
 
